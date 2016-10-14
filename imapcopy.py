@@ -91,6 +91,9 @@ class IMAP_Copy(object):
         self._disconnect('destination')
 
     def copy(self, source_mailbox, destination_mailbox, skip, limit, recurse_level=0):
+        # fix for gmail
+        destination_mailbox = destination_mailbox.lstrip("/")
+        
         if self.recurse:
             self.logger.info("Getting list of mailboxes under %s" % source_mailbox)
             connection = self._conn_source
